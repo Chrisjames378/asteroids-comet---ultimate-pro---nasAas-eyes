@@ -1,0 +1,6 @@
+{
+  "name": "Asteroids, Comet - Ultimate Pro - NASA's Eyes",
+  "description": "3D interactive planetary defense, NEO & comet tracking command suite with live JPL SSD ephemeris data, DART kinetic impactor planner, Goldstone radar bounce telemetry, impact sandbox, and Gemini CNEOS AI copilot.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

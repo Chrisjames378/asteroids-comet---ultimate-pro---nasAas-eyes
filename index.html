@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <script>
+      (function() {
+        const origErr = console.error;
+        const origWarn = console.warn;
+        const isWsError = (msg) => {
+          if (!msg) return false;
+          const str = typeof msg === 'string' ? msg : (msg.message || msg.toString());
+          return str.includes('[vite] failed to connect to websocket') ||
+                 str.includes('WebSocket connection to') ||
+                 str.includes('WebSocket') ||
+                 str.includes('ws://');
+        };
+        console.error = function(...args) {
+          if (isWsError(args[0])) return;
+          origErr.apply(console, args);
+        };
+        console.warn = function(...args) {
+          if (isWsError(args[0])) return;
+          origWarn.apply(console, args);
+        };
+        window.addEventListener('error', function(e) {
+          if (isWsError(e.message) || isWsError(e.filename)) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+          }
+        }, true);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asteroids, Comet - Ultimate Pro - NASA's Eyes</title>
+    <meta name="description" content="3D interactive planetary defense, NEO & comet tracking command suite with live JPL SSD ephemeris data, DART kinetic impactor planner, Goldstone radar bounce telemetry, impact sandbox, and Gemini CNEOS AI copilot." />
+    <meta property="og:title" content="Asteroids, Comet - Ultimate Pro - NASA's Eyes" />
+    <meta property="og:description" content="3D interactive planetary defense, NEO & comet tracking command suite with live JPL SSD ephemeris data, DART kinetic impactor planner, Goldstone radar bounce telemetry, impact sandbox, and Gemini CNEOS AI copilot." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#020617] text-slate-100 font-sans antialiased overflow-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
